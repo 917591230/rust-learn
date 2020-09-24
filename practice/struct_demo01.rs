@@ -108,3 +108,23 @@ struct Point {
     y: f32,
 }
 
+// ----- output result -----
+//  Rectangle {
+//      a: Point {
+//          x: 0.0,
+//          y: 2.0,
+//      },
+//      b: Point {
+//          x: 2.0,
+//          y: 2.0,
+//      },
+//      c: Point {
+//          x: 0.0,
+//          y: 0.0,
+//      },
+//      d: Point {
+//          x: 0.0,
+//          y: 2.0,
+//      },
+//  }
+//  4
