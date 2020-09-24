@@ -1,0 +1,56 @@
+use std::convert::From;
+
+#[derive(Debug)]
+struct Number {
+    value: i32,
+}
+
+impl From<i32> for Number {
+    fn from(item: i32) -> Self {
+        Number { value: item }
+    }
+}
+/// 实现Clone自动拥有clone方法，#[derive(Debug,Clone,Copy)],不能同时实现Clone和Copy。
+/// 实现了Copy的类型，在旧的变量赋值（=）给其他变量后任然可用。
+#[derive(Debug,Clone)]
+struct Point(f32,f32);
+
+#[derive(Debug)]
+struct Pair{
+    left: f32,
+    right: f32,
+}
+
+impl From<Point> for Pair {
+    fn from(p: Point) -> Self {
+        Pair { left: p.0, right: p.1 }
+    }
+}
+
+fn main() {
+    let int = 5;
+    // 试试删除类型说明
+    let num: Number = int.into();
+    println!("My number is {:?}", num);
+
+    // 添加自定义类型转换测试代码
+    let point: Point =Point(2.0,2.0);
+
+    let clone_point: Point = point.clone();
+    let from_point: Pair = Pair::from(clone_point);
+    let into_pair: Pair = point.into();
+    println!("Pair from Point{:?}",from_point);
+    println!("Point into Pair{:?}",into_pair);
+
+}
+
+// ----- output result -----
+//  My number is Number { value: 5 }
+//  Pair from PointPair { left: 2.0, right: 2.0 }
+//  Point into PairPair { left: 2.0, right: 2.0 }
+
+
+
+
+
+
