@@ -1,3 +1,16 @@
+///    关于控制台打印对象
+///    Display 用 {:?}
+///    ToString 用 {} + to_string()
+///    Debug 用 {:?}
+/// 隐式复制对象
+///     需要实现 Copy trait
+/// 克隆对象
+///     需要实现 Clone trait
+/// 一个结构体不能同时实现 Copy 和 Clone
+/// 对于值离开作用域需要特殊处理的类型不能使用Copy注解。
+/// 任何简单标量值的组合可以是 Copy 的，不需要分配内存或某种形式资源的类型是 Copy 的。
+///     例如：整数类型，布尔类型、元组，
+///     反例：String、元组存储需要额外分配资源的类型
 use std::convert::From;
 
 #[derive(Debug)]
