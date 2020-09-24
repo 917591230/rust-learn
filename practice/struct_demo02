@@ -1,0 +1,27 @@
+/// 参照 struct_demo01
+fn main(){
+
+    let point: Point = Point(0 as f32,0 as f32);
+    let side_length = 2 as f32;
+    let rect = square(point,side_length);   
+    println!("{:#?}",rect);
+    println!("{:?}",rect_area(rect));
+    
+}    
+fn rect_area(rect: Rectangle)->f32{
+    let Rectangle(Point(ax,ay),Point(bx,by),Point(cx,cy),Point(dx,dy)) = rect;
+    let length = bx-cx;
+    let height = by-cy;
+    return length*height;
+}
+
+fn square(p: Point, l: f32)->Rectangle{
+    let Point(x,y) = p;
+    Rectangle(Point(x,y+l),Point(x+l,y+l),Point(x,y),Point(y,x+l))
+}
+
+#[derive(Debug)]
+struct Rectangle(Point,Point,Point,Point);
+
+#[derive(Debug)]
+struct Point(f32,f32);
