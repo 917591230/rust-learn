@@ -1,0 +1,32 @@
+/// 可变租借和不可变租借不能同时存在。
+#![allow(unused)]
+fn main() {
+    let mut list = vec![1, 2, 3, 4, 5];
+    
+    let b =&mut list;
+    let a = &list;
+    
+    println!("{:?},{:?}",a,b);
+
+}
+
+/// 不可变租借和原始对象之间的冻结问题。
+/// 两者可以同时存在，但是不能修改原始对象数据，除非不可变租借离开了作用域。
+fn main(){
+    let mut mutable_integer = 7i32;
+    // {
+    //     let borrow = &mutable_integer;
+    //     mutable_integer += 1;
+    //     println!("{}",borrow);
+    // }
+    // println!("{}",mutable_integer);
+    
+    // 变量在借用的过程中，不能被修改。cannot assign to `mutable_integer` because it is borrowed.
+    // 也叫冻结(freeze),已冻结的数据无法通过原始对象来修改，直到这些数据的所有引用离开作用域。
+    let borrow = &mutable_integer;
+//               ---------------- borrow of `mutable_integer` occurs here
+    mutable_integer +=1;
+//  ^^^^^^^^^^^^^^^^^^^ assignment to borrowed `mutable_integer` occurs here
+    println!("{},{}",mutable_integer,borrow);
+//                                   ------ borrow later used here
+}
