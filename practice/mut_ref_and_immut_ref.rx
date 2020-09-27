@@ -2,14 +2,48 @@
 #![allow(unused)]
 fn main() {
     let mut list = vec![1, 2, 3, 4, 5];
-    
-    let b =&mut list;
-    let a = &list;
+    // 下面两者不能同时存在
+    // let b =&mut list;
+    // let a = &list;
     
     println!("{:?},{:?}",a,b);
 
 }
 
+//   |     error[E0502]: cannot borrow `list` as immutable because it is also borrowed as mutable
+//   |
+// 6 |     let b =&mut list;
+//   |            --------- mutable borrow occurs here
+// 7 |     let a = &list;
+//   |             ^^^^^ immutable borrow occurs here
+// 8 |     
+// 9 |     println!("{:?},{:?}",a,b);
+//   |                            - mutable borrow later used here
+
+
+
+=============================================================================================================
+/// 同上一样出现了可变和不可变引用同时发生
+#![allow(unused)]
+fn main() {
+    let mut list = vec![1, 2, 3, 4, 5];
+    
+    list [list.len()-1]= 0;
+    
+    println!("{:?},{:?}",list,0);
+
+}
+//   |    error[E0502]: cannot borrow `list` as immutable because it is also borrowed as mutable
+//   |
+//   |     list [list.len()-1]= 0;
+// 5 |     ------^^^^---------
+//   |     |     |
+//   |     |     immutable borrow occurs here
+//   |     mutable borrow occurs here
+//   |     mutable borrow later used here
+
+
+=============================================================================================================
 /// 不可变租借和原始对象之间的冻结问题。
 /// 两者可以同时存在，但是不能修改原始对象数据，除非不可变租借离开了作用域。
 fn main(){
