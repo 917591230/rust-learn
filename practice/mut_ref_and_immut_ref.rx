@@ -22,16 +22,15 @@
     同一作用域，不能同时出现不可变借用，即不可以同时写。
 */
 
-//   |     error[E0502]: cannot borrow `list` as immutable because it is also borrowed as mutable
+// error[E0502]: cannot borrow `list` as mutable because it is also borrowed as immutable
+//  --> src/main.rs:7:13
 //   |
-// 6 |     let b =&mut list;
-//   |            --------- mutable borrow occurs here
-// 7 |     let a = &list;
-//   |             ^^^^^ immutable borrow occurs here
-// 8 |     
-// 9 |     println!("{:?},{:?}",a,b);
-//   |                            - mutable borrow later used here
-
+// 6 |     let a = &list;
+//   |             ----- immutable borrow occurs here
+// 7 |     let b = &mut list;
+//   |             ^^^^^^^^^ mutable borrow occurs here
+// 8 |     println!("{:?},{:?}",a,b); 
+//   |                          - immutable borrow later used here
 
 
 =============================================================================================================
